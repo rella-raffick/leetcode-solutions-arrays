@@ -1,0 +1,50 @@
+Function threeSum(nums):
+    Initialize res as a new Set to store unique triplets
+    Initialize N (negative numbers), P (positive numbers) as Sets, and z (zero count) as an integer
+    Initialize p_dub and n_dub as Sets to store duplicates of positive and negative numbers
+
+    For each num in nums:
+        If num > 0:
+            If num is in P:
+                Add num to p_dub
+            Else:
+                Add num to P
+        Else if num < 0:
+            If num is in N:
+                Add num to n_dub
+            Else:
+                Add num to N
+        Else:
+            Increment z
+
+    If z is not zero:
+        For each num in P:
+            If -num is in N:
+                Add (-num, 0, num) to res
+
+    If z >= 3:
+        Add (0, 0, 0) to res
+
+    Convert N and P to Lists n and p
+
+    For i from 0 to length of n:
+        For j from i+1 to length of n:
+            Set target to -(n[i] + n[j])
+            If target is in P:
+                Add sorted triplet (n[i], n[j], target) to res
+
+    For i from 0 to length of p:
+        For j from i+1 to length of p:
+            Set target to -(p[i] + p[j])
+            If target is in N:
+                Add sorted triplet (p[i], p[j], target) to res
+
+    For each i in p_dub:
+        If -2*i is in N:
+            Add (i, i, -2*i) to res
+
+    For each i in n_dub:
+        If -2*i is in P:
+            Add (i, i, -2*i) to res
+
+    Return res
