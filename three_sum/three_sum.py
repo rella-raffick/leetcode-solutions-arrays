@@ -1,64 +1,64 @@
 def threeSum(nums):
-    # Initialize a set to store unique triplets that sum to zero
+    # Create a set to hold the unique triplets that add up to zero.
     res = set()
 
-    # Initialize sets for positive numbers, negative numbers, and count of zeros
-    N, P, z = set(), set(), 0
+    # Create sets to separate the numbers into positive, negative, and keep track of zeros.
+    N, P, z = set(), set(), 0  # N for negatives, P for positives, z for zero count.
 
-    # Initialize sets to keep track of duplicates in positive and negative numbers
+    # Sets to remember which positive and negative numbers appear more than once.
     p_dub, n_dub = set(), set()
 
-    # Iterate over the numbers to categorize them into positive, negative, or zero
+    # Go through each number in the input list.
     for num in nums:
-        if num > 0:  # Positive numbers
-            if num in P:  # Check for duplicates
+        if num > 0:  # For positive numbers
+            if num in P:  # If we've seen it before, remember it has a duplicate.
                 p_dub.add(num)
-            else:
+            else:  # Otherwise, just add it to the set of positives.
                 P.add(num)
-        elif num < 0:  # Negative numbers
-            if num in N:  # Check for duplicates
+        elif num < 0:  # For negative numbers
+            if num in N:  # If we've seen this one before, remember the duplicate.
                 n_dub.add(num)
-            else:
+            else:  # Add new negatives to the set of negatives.
                 N.add(num)
-        else:  # Zero
-            z += 1
+        else:  # For zeros
+            z += 1  # Just count how many zeros we have.
 
-    # If there is at least one zero, find pairs of positive and negative numbers that are negations of each other
+    # If we have any zeros, look for pairs of numbers that are negatives of each other.
     if z:
         for num in P:
             if -num in N:
                 res.add((-num, 0, num))
 
-    # If there are three or more zeros, add the triplet (0,0,0) to the result set
+    # If we have 3 or more zeros, then (0, 0, 0) is a valid triplet.
     if z >= 3:
         res.add((0, 0, 0))
 
-    # Convert sets of positive and negative numbers to lists for iteration
+    # Convert the sets of positives and negatives to lists so we can iterate over them.
     n, p = list(N), list(P)
 
-    # Find two negative numbers that sum up to the negation of a positive number
+    # Look for pairs of negatives that, when added, are the negation of a positive number.
     for i in range(len(n)):
         for j in range(i + 1, len(n)):
             target = -1 * (n[i] + n[j])
             if target in P:
                 res.add(tuple(sorted([n[i], n[j], target])))
 
-    # Find two positive numbers that sum up to the negation of a negative number
+    # Do the same for pairs of positives, looking for a corresponding negative number.
     for i in range(len(p)):
         for j in range(i + 1, len(p)):
             target = -1 * (p[i] + p[j])
             if target in N:
                 res.add(tuple(sorted([p[i], p[j], target])))
 
-    # For duplicates among positive numbers, check if their double negation is in negative numbers
+    # Check if the double of a positive number's duplicate is a negative number.
     for i in p_dub:
         if -2 * i in N:
-            res.add(tuple([i, i, -2 * i]))
+            res.add((i, i, -2 * i))
 
-    # For duplicates among negative numbers, check if their double negation is in positive numbers
+    # Similarly, check if the double of a negative number's duplicate is a positive.
     for i in n_dub:
         if -2 * i in P:
-            res.add(tuple([i, i, -2 * i]))
+            res.add((i, i, -2 * i))
 
-    # Return the set of unique triplets
+    # Return the unique triplets that sum up to zero.
     return res

@@ -1,0 +1,14 @@
+Steps to Solve:
+1. Create an empty set to store the unique elements of the list.
+2. Create empty sets for storing positive and negative numbers. Also create sets to store duplicate positive and negative numbers.
+3. Declare a variable and initialize it to 0 for storing number of zeros in the list.
+4. Loop through the input list & store positive integers in the positive set, negative integers in the negative set and count the number of zeros.
+5. Also if the number is already present in the positive set, add it to the duplicate positive set. If the number is already present in the negative set, add it to the duplicate negative set.
+6. If there is a zero, loop in positive set in negative set to look if a positive number's negation exists in negative set.
+7. If it exists, add the triplet to the result list.
+8. If there are more than 3 zeros, add (0,0,0) to the result list.
+9. Range through positive set and add two elements of it and negate it to check if the sum exists in negative set. If it exists, add the triplet to the result list.
+10. Range through negative set and add two elements of it and negate it to check if the sum exists in positive set. If it exists, add the triplet to the result list.
+11. Now, Check if double of a duplicate positive number exists in negative set. If it exists, add the triplet to the result list.
+12. Now, Check if double of a duplicate negative number exists in positive set. If it exists, add the triplet to the result list.
+13. Return the result list.
